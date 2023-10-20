@@ -30,6 +30,7 @@ def get_perms(
 
 def get_rbac_filters(rbac_data):
     """Gets RBAC filters from RBAC data"""
+    #
     # possible values in "groups.id" key:
     # None - no filter applied, all hosts allowed
     # [] - no groups ids present, no hosts allowed
@@ -73,7 +74,10 @@ def get_rbac_filters(rbac_data):
     # flatten definitions so we can work with all of them at once
     definitions = [item for row in definitions for item in row]
 
+    print('------------------------------ kerlescan/rbac_service_interface.py')
+    print("group_ids: {}".format(group_ids))
     if group_ids is not None:
+        print("definitions: {}".format(definitions))
         # no definition means no matched permission
         if definitions == []:
             group_ids = []
@@ -102,5 +106,6 @@ def get_rbac_filters(rbac_data):
         group_ids = [{"id": group_id} for group_id in set(group_ids)]
 
     result = {"group.id": group_ids}
+    print("result: {}".format(result))
 
     return result
